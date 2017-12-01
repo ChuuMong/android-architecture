@@ -1,0 +1,79 @@
+// App dependencies
+def supportLibraryVersion = '26.1.0'
+def constraintLayoutVersion = '1.0.2'
+def guavaVersion = '22.0-android'
+def junitVersion = '4.12'
+def mockitoVersion = '1.10.19'
+
+def hamcrestVersion = '1.3'
+def runnerVersion = '1.0.1'
+def rulesVersion = '1.0.1'
+def espressoVersion = '3.0.1'
+
+// Architecture Components dependencies_variable
+def roomVersion = "1.0.0"
+def archLifecycleVersion = "1.0.0-rc1"
+
+def dependencyGroup(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+ext.ui = dependencyGroup {
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:support-v4:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+}
+
+ext.guava = dependencyGroup {
+    compile "com.google.guava:guava:$guavaVersion"
+}
+
+ext.arch = dependencyGroup {
+    compile "android.arch.persistence.room:runtime:$roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
+
+    compile "android.arch.lifecycle:extensions:$archLifecycleVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$archLifecycleVersion"
+}
+
+
+ext.test = dependencyGroup {
+    testCompile "junit:junit:$junitVersion"
+    testCompile "org.mockito:mockito-all:$mockitoVersion"
+    testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
+
+    testCompile "android.arch.core:core-testing:$archLifecycleVersion"
+}
+
+ext.androidTest = dependencyGroup {
+    androidTestCompile "com.android.support.test:runner:$runnerVersion"
+    androidTestCompile "com.android.support.test:rules:$rulesVersion"
+
+    androidTestCompile "android.arch.persistence.room:testing:$roomVersion"
+
+    androidTestCompile "junit:junit:$junitVersion"
+    androidTestCompile "org.mockito:mockito-core:$mockitoVersion"
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
+}
+
+ext.espresso = dependencyGroup {
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+    androidTestCompile "com.android.support.test.espresso.idling:idling-concurrent:$espressoVersion"
+    compile "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
+}
+
+ext.uiTest = dependencyGroup {
+    androidTestCompile "com.android.support:support-annotations:$supportLibraryVersion"
+    androidTestCompile "com.android.support:support-v4:$supportLibraryVersion"
+    androidTestCompile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    androidTestCompile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    androidTestCompile "com.android.support:support-compat:$supportLibraryVersion"
+    androidTestCompile "com.android.support:design:$supportLibraryVersion"
+}
